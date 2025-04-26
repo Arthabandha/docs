@@ -29,7 +29,7 @@ const myTheme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={myTheme}>
-      <Router basename={process.env.NODE_ENV === 'production' ? '/my-docs-site' : '/'}>
+      <Router basename={process.env.NODE_ENV === 'production' ? '/docs' : '/'}>
         <DocLayout>
           <Routes>
             <Route path="/" element={<HomePage />} />
