@@ -3,16 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Stack,
   Nav,
-  INavLink,
-  INavStyles,
-  Text,
   IconButton,
-  IIconProps,
   SearchBox,
-  StackItem,
-  mergeStyleSets,
   FontIcon,
   useTheme,
+  mergeStyleSets,
 } from '@fluentui/react';
 
 const menuIcon = { iconName: 'GlobalNavButton' };
@@ -40,10 +35,18 @@ const DocLayout = ({ children }) => {
       transitionDuration: '0.2s',
       transitionTimingFunction: 'ease',
     },
+    linkText: {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      display: isNavCollapsed ? 'none' : 'block',
+    },
     link: {
       whiteSpace: 'nowrap',
       textDecoration: 'none',
       color: theme.palette.neutralPrimary,
+      paddingLeft: isNavCollapsed ? 11 : undefined,
+      textAlign: isNavCollapsed ? 'center' : undefined,
       ':hover': {
         backgroundColor: theme.palette.neutralLighter,
       },
@@ -51,9 +54,39 @@ const DocLayout = ({ children }) => {
     chevronButton: {
       fontSize: 12,
       fontWeight: 400,
+      display: isNavCollapsed ? 'none' : 'block',
+    },
+    chevronIcon: {
+      fontSize: 10,
+    },
+    groupContent: {
+      marginLeft: isNavCollapsed ? 0 : 0,
+      paddingLeft: isNavCollapsed ? 0 : undefined,
+    },
+    compositeLink: {
+      alignItems: isNavCollapsed ? 'center' : undefined,
+    },
+    iconWrapper: {
+      textAlign: isNavCollapsed ? 'center' : undefined,
+      width: isNavCollapsed ? '100%' : undefined,
+    },
+    divider: {
+      borderBottom: `1px solid ${theme.palette.neutralLight}`,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    groupHeader: {
+      paddingLeft: 16,
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontSize: 14,
+      fontWeight: 600,
+      color: theme.palette.neutralSecondary,
+      display: isNavCollapsed ? 'none' : 'block',
     },
   };
 
+  // Updated navLinkGroups with separators and section headers
   const navLinkGroups = [
     {
       links: [
@@ -69,20 +102,38 @@ const DocLayout = ({ children }) => {
           key: 'getting-started',
           icon: 'Rocket',
         },
+      ],
+    },
+    // Use a separate group with a header to create a section
+    {
+      name: 'Configuration',
+      links: [
         {
-          name: 'Components',
-          url: '/components',
-          key: 'components',
-          icon: 'Puzzle',
-        },
-        {
-          name: 'API Reference',
-          url: '/api-reference',
-          key: 'api-reference',
-          icon: 'Code',
+          name: 'Fyers Configuration',
+          url: '/fyers-configuration',
+          key: 'fyers-configuration',
+          icon: 'PlugConnected',
         },
       ],
     },
+    // Another section
+    // {
+    //   name: 'Developer Tools',
+    //   links: [
+    //     {
+    //       name: 'API Documentation',
+    //       url: '/api-docs',
+    //       key: 'api-docs',
+    //       icon: 'Code',
+    //     },
+    //     {
+    //       name: 'SDK Examples',
+    //       url: '/sdk-examples',
+    //       key: 'sdk-examples',
+    //       icon: 'CodeEdit',
+    //     },
+    //   ],
+    // },
   ];
 
   const handleSearchChange = (event, newValue) => {
@@ -98,6 +149,8 @@ const DocLayout = ({ children }) => {
     container: {
       display: 'flex',
       height: '100vh',
+      margin: 0,
+      padding: 0,
     },
     navToggle: {
       marginRight: 10,
@@ -107,6 +160,7 @@ const DocLayout = ({ children }) => {
       flex: 1,
       padding: 20,
       overflow: 'auto',
+      margin: 0,
     },
     headerContainer: {
       borderBottom: `1px solid ${theme.palette.neutralLight}`,
@@ -129,21 +183,38 @@ const DocLayout = ({ children }) => {
       alignItems: 'center',
     },
     logoIcon: {
-      marginRight: 8,
+      marginRight: isNavCollapsed ? 0 : 8,
       fontSize: 20,
+      textAlign: isNavCollapsed ? 'center' : undefined,
+      width: isNavCollapsed ? '100%' : undefined,
     },
+    navContainer: {
+      padding: 0,
+      margin: 0,
+    }
   });
+
+  const getSelectedKey = () => {
+    if (location.pathname === '/') return 'home';
+    
+    const path = location.pathname.substring(1);
+    return path;
+  };
 
   return (
     <div className={styles.container}>
-      <Nav
-        onLinkClick={handleLinkClick}
-        selectedKey={location.pathname === '/' ? 'home' : location.pathname.substring(1)}
-        styles={navStyles}
-        groups={navLinkGroups}
-        expandButtonAriaLabel={isNavCollapsed ? 'Expand' : 'Collapse'}
-        isCollapsed={isNavCollapsed}
-      />
+      <div className={styles.navContainer}>
+        <Nav
+          onLinkClick={handleLinkClick}
+          selectedKey={getSelectedKey()}
+          styles={navStyles}
+          groups={navLinkGroups}
+          expandAriaLabel={isNavCollapsed ? 'Expand' : 'Collapse'}
+          expandedStateText="expanded"
+          collapsedStateText="collapsed"
+          isCollapsed={isNavCollapsed}
+        />
+      </div>
 
       <div className={styles.contentArea}>
         <div className={styles.headerContainer}>

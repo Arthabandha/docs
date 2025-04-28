@@ -84,27 +84,19 @@ const HomePage = () => {
       description: 'Learn how to set up your first project and understand the basics.',
       url: '/getting-started',
     },
-    {
-      title: 'Components',
-      icon: 'Puzzle',
-      description: 'Explore the available components and learn how to use them in your application.',
-      url: '/components',
-    },
-    {
-      title: 'API Reference',
-      icon: 'Code',
-      description: 'Detailed API documentation for all components and utilities.',
-      url: '/api-reference',
-    },
   ];
 
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
         <Text className={styles.heroTitle}>Documentation Portal</Text>
+        <br />
+        <br />
         <Text className={styles.heroSubtitle}>
           Comprehensive guides, API references, and examples to help you build amazing applications
         </Text>
+        <br />
+        <br />
         <Link to="/getting-started" style={{ textDecoration: 'none' }}>
           <DefaultButton primary text="Get Started" />
         </Link>
@@ -112,6 +104,8 @@ const HomePage = () => {
 
       <div className={styles.section}>
         <Text className={styles.sectionTitle}>Documentation</Text>
+        <br />
+        <br />
         <Stack horizontal tokens={cardStackTokens} wrap>
           {cards.map((card, index) => (
             <DocumentCard key={index} className={styles.card}>

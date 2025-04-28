@@ -4,8 +4,7 @@ import { initializeIcons, createTheme, ThemeProvider } from '@fluentui/react';
 import DocLayout from './components/DocLayout';
 import HomePage from './pages/HomePage';
 import GettingStarted from './pages/GettingStarted';
-import Components from './pages/Components';
-import ApiReference from './pages/ApiReference';
+import FyersConfiguration from './pages/FyersConfiguration';
 import './App.css';
 
 // Initialize Fluent UI icons
@@ -34,8 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/getting-started" element={<GettingStarted />} />
-            <Route path="/components" element={<Components />} />
-            <Route path="/api-reference" element={<ApiReference />} />
+            <Route path="/fyers-configuration" element={<FyersConfiguration />} />
           </Routes>
         </DocLayout>
       </Router>

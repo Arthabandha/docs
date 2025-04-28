@@ -141,23 +141,6 @@ module.exports = {
   apiUrl: 'https://api.example.com'
 };`}</code></pre>
       </div>
-      
-      <Text className={styles.subtitle}>Next Steps</Text>
-      <Text className={styles.paragraph}>
-        Now that you have set up the library, you can:
-      </Text>
-      <ul>
-        <li>
-          <Text className={styles.paragraph}>
-            <Link href="/components">Explore the components</Link> available in the library
-          </Text>
-        </li>
-        <li>
-          <Text className={styles.paragraph}>
-            Check out the <Link href="/api-reference">API reference</Link> for detailed documentation
-          </Text>
-        </li>
-      </ul>
     </div>
   );
 };
