@@ -40,7 +40,7 @@ const GettingStarted = () => {
       marginBottom: 15,
     },
     codeBlock: {
-      backgroundColor: theme.palette.neutralLighter,
+      backgroundColor: theme.palette.themeLighter,
       padding: '15px',
       borderRadius: '4px',
       fontFamily: 'monospace',
